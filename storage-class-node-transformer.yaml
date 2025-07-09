@@ -1,0 +1,23 @@
+apiVersion: builtin
+kind: PatchTransformer
+metadata:
+  name: sas-opendistro-storage-class-transformer
+patch: |-
+  - op: replace
+    path: /spec/defaultStorageClassName
+    value: managed-premium
+  - op: replace
+    path: /spec/nodes
+    value:
+      - name: default
+        heapsize: 8G
+        replicas: 1
+        roles:
+          - master
+          - data
+        volume:
+          resources:
+            requests:
+              storage: 250Gi
+target:
+  kind: OpenDistroCluster
