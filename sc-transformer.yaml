@@ -1,0 +1,14 @@
+apiVersion: builtin
+kind: PatchTransformer
+metadata:
+  name: sas-opendistro-run-user-transformer
+patch: |-
+  - op: add
+    path: /spec/template/spec/containers/0/securityContext
+    value:
+      allowPrivilegeEscalation: true   
+      privileged: true               
+      runAsNonRoot: false 
+      runAsUser: 0
+target:
+  kind: OpenDistroCluster
